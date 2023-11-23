@@ -9,11 +9,11 @@ const MockAdapter = require('@bot-whatsapp/database/mock')
 
 
 //________________________________________________
-const app = express();
-app.get('/',(req,res)=>{
-    res.sendFile(__dirname + '/index.html')
-})
-app.listen(4000)
+// const app = express();
+// app.get('/',(req,res)=>{
+//     res.sendFile(__dirname + '/index.html')
+// })
+// app.listen(4000)
 //________________________________________________
 
 const flowSecundario = addKeyword(['2', 'siguiente']).addAnswer(['📄 Aquí tenemos el flujo secundario'])
