@@ -17,7 +17,6 @@ const MockAdapter = require('@bot-whatsapp/database/mock')
 //________________________________________________
 
 const flowSecundario = addKeyword(['2', 'siguiente']).addAnswer(['📄 Aquí tenemos el flujo secundario'])
-
 const flowDocs = addKeyword(['doc', 'documentacion', 'documentación']).addAnswer(
     [
         '📄 Aquí encontras las documentación recuerda que puedes mejorarla',
@@ -39,7 +38,6 @@ const flowTuto = addKeyword(['tutorial', 'tuto']).addAnswer(
     null,
     [flowSecundario]
 )
-
 const flowGracias = addKeyword(['gracias', 'grac']).addAnswer(
     [
         '🚀 Puedes aportar tu granito de arena a este proyecto',
@@ -60,18 +58,82 @@ const flowDiscord = addKeyword(['discord']).addAnswer(
     [flowSecundario]
 )
 
+// const flowPrincipal = addKeyword(['hola', 'ole', 'alo'])
+//     .addAnswer('🙌 Hola bienvenid@ a *Hierba Mala*')
+//     .addAnswer(
+//         [
+//             'te comparto los siguientes botones de interes sobre la Herboristeria',
+//             '👉 *doc* para ver la documentación',
+//             '👉 *gracias*  para ver la lista de videos',
+//             '👉 *discord* unirte al discord',
+//         ],
+//         null,
+//         null,
+//         [flowDocs, flowGracias, flowTuto, flowDiscord]
+//     )
+
+const flowPanetonChocolate = addKeyword(['Chocolate Paneton']).addAnswer(
+    [
+        '📄 Elegiste el sabor Chocolate',
+        '📄 Cuantos panetones desea ordenar?'
+    ],
+    []
+)
+const flowPanetonVanilla = addKeyword(['Vanilla', 'vainilla', 'vainila','sabor vainila']).addAnswer(
+    [
+        '📄 Elegiste el sabor Vainilla',
+        '📄 Cuantos panetones desea ordenar?'
+    ],
+    null,
+    []
+)
+const flowPanetones = addKeyword(['Panetones', 'paneton', 'panetones','Paneton']).addAnswer(
+    [
+        '📄 Elige el sabor de Paneton que te guste',
+        '📄 Paneton de *Chocolate*',
+        '📄 Paneton de *Vainilla*',
+    ],
+    null,
+    [flowPanetonChocolate,flowPanetonVanilla]
+)
+const flowRoscaChocolate = addKeyword(['Chocolate Rosca']).addAnswer(
+    [
+        '📄 Elegiste el sabor Chocolate',
+        '📄 Cuantas Roscas desea ordenar?'
+    ],
+    null,
+    []
+)
+const flowRoscaVanilla = addKeyword(['Vanilla', 'vainilla', 'vainila','sabor vainila']).addAnswer(
+    [
+        '📄 Elegiste el sabor Vainilla',
+        '📄 Cuantos Roscas desea ordenar?'
+    ],
+    null,
+    []
+)
+const flowRoscas = addKeyword(['Roscas', 'rosca']).addAnswer(
+    [
+        '📄 Elige el sabor de Rosca que te guste',
+        '📄 Rosca de *Chocolate*',
+        '📄 Rosca de *Vainilla*'
+    ],
+    
+    null,
+    [flowRoscaChocolate,flowRoscaVanilla]
+)
 const flowPrincipal = addKeyword(['hola', 'ole', 'alo'])
-    .addAnswer('🙌 Hola bienvenido a este *Chatbot*')
+    .addAnswer('🙌 Hola bienvenid@ a *Hierba Mala*')
     .addAnswer(
-        [
-            'te comparto los siguientes links de interes sobre el proyecto',
-            '👉 *doc* para ver la documentación',
-            '👉 *gracias*  para ver la lista de videos',
-            '👉 *discord* unirte al discord',
-        ],
-        null,
-        null,
-        [flowDocs, flowGracias, flowTuto, flowDiscord]
+            [
+                'te comparto las siguientes opciones de interes sobre la Herboristeria',
+                '👉 *Panetones*',
+                '👉 *Roscas*',
+                '👉 *Panetones y Roscas*',
+            ],
+            null,
+            null,
+            [flowDocs,flowPanetones,flowRoscas]
     )
 
 const main = async () => {
