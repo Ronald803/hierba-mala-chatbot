@@ -16,74 +16,23 @@ const MockAdapter = require('@bot-whatsapp/database/mock')
 // app.listen(4000)
 //________________________________________________
 
-const flowSecundario = addKeyword(['2', 'siguiente']).addAnswer(['📄 Aquí tenemos el flujo secundario'])
-const flowDocs = addKeyword(['doc', 'documentacion', 'documentación']).addAnswer(
-    [
-        '📄 Aquí encontras las documentación recuerda que puedes mejorarla',
-        'https://bot-whatsapp.netlify.app/',
-        '\n*2* Para siguiente paso.',
-    ],
-    null,
-    null,
-    [flowSecundario]
-)
-
-const flowTuto = addKeyword(['tutorial', 'tuto']).addAnswer(
-    [
-        '🙌 Aquí encontras un ejemplo rapido',
-        'https://bot-whatsapp.netlify.app/docs/example/',
-        '\n*2* Para siguiente paso.',
-    ],
-    null,
-    null,
-    [flowSecundario]
-)
-const flowGracias = addKeyword(['gracias', 'grac']).addAnswer(
-    [
-        '🚀 Puedes aportar tu granito de arena a este proyecto',
-        '[*opencollective*] https://opencollective.com/bot-whatsapp',
-        '[*buymeacoffee*] https://www.buymeacoffee.com/leifermendez',
-        '[*patreon*] https://www.patreon.com/leifermendez',
-        '\n*2* Para siguiente paso.',
-    ],
-    null,
-    null,
-    [flowSecundario]
-)
-
-const flowDiscord = addKeyword(['discord']).addAnswer(
-    ['🤪 Únete al discord', 'https://link.codigoencasa.com/DISCORD', '\n*2* Para siguiente paso.'],
-    null,
-    null,
-    [flowSecundario]
-)
-
-// const flowPrincipal = addKeyword(['hola', 'ole', 'alo'])
-//     .addAnswer('🙌 Hola bienvenid@ a *Hierba Mala*')
-//     .addAnswer(
-//         [
-//             'te comparto los siguientes botones de interes sobre la Herboristeria',
-//             '👉 *doc* para ver la documentación',
-//             '👉 *gracias*  para ver la lista de videos',
-//             '👉 *discord* unirte al discord',
-//         ],
-//         null,
-//         null,
-//         [flowDocs, flowGracias, flowTuto, flowDiscord]
-//     )
-
-const flowPanetonChocolate = addKeyword(['Chocolate Paneton']).addAnswer(
+const flowPanetonChocolate = addKeyword(['Chocolate Paneton','chocolate','choco','Paneton Chocolate']).addAnswer(
     [
         '📄 Elegiste el sabor Chocolate',
         '📄 Cuantos panetones desea ordenar?'
-    ],
+    ],{
+        media:'https://www.chocolatenegro.info/contenidos/imagenes/panettone-con-chocolate.jpg'
+    },
     []
 )
-const flowPanetonVanilla = addKeyword(['Vanilla', 'vainilla', 'vainila','sabor vainila']).addAnswer(
+const flowPanetonClasico = addKeyword(['Paneton Clasico','clasico','clasico paneton','clásico']).addAnswer(
     [
-        '📄 Elegiste el sabor Vainilla',
+        '📄 Elegiste el Paneton Clasico',
         '📄 Cuantos panetones desea ordenar?'
     ],
+    {
+        media:'https://ichef.bbci.co.uk/news/640/cpsprodpb/139ED/production/_110256308_panetn.jpg'
+    },
     null,
     []
 )
@@ -91,24 +40,31 @@ const flowPanetones = addKeyword(['Panetones', 'paneton', 'panetones','Paneton']
     [
         '📄 Elige el sabor de Paneton que te guste',
         '📄 Paneton de *Chocolate*',
-        '📄 Paneton de *Vainilla*',
+        '📄 Paneton de *Clásico*',
     ],
     null,
-    [flowPanetonChocolate,flowPanetonVanilla]
+    null,
+    [flowPanetonChocolate,flowPanetonClasico]
 )
-const flowRoscaChocolate = addKeyword(['Chocolate Rosca']).addAnswer(
+const flowRoscaChocolate = addKeyword(['Rosca Chocolate','chocolate','chocolate rosca']).addAnswer(
     [
         '📄 Elegiste el sabor Chocolate',
         '📄 Cuantas Roscas desea ordenar?'
     ],
+    {
+        media:'https://www.platosplisplas.com/wp-content/uploads/2020/12/Rosca-de-mazapan-y-chocolate.jpg'
+    },
     null,
     []
 )
-const flowRoscaVanilla = addKeyword(['Vanilla', 'vainilla', 'vainila','sabor vainila']).addAnswer(
+const flowRoscaClásica = addKeyword(['Rosca Clasica','clasica','clásica']).addAnswer(
     [
         '📄 Elegiste el sabor Vainilla',
         '📄 Cuantos Roscas desea ordenar?'
     ],
+    {
+        media:'https://editorialtelevisa.brightspotcdn.com/wp-content/uploads/2020/01/rosca-de-chocolate-y-vainilla.jpg'
+    },
     null,
     []
 )
@@ -116,24 +72,24 @@ const flowRoscas = addKeyword(['Roscas', 'rosca']).addAnswer(
     [
         '📄 Elige el sabor de Rosca que te guste',
         '📄 Rosca de *Chocolate*',
-        '📄 Rosca de *Vainilla*'
+        '📄 Rosca de *Clásica*'
     ],
-    
     null,
-    [flowRoscaChocolate,flowRoscaVanilla]
+    null,
+    [flowRoscaChocolate,flowRoscaClásica]
 )
 const flowPrincipal = addKeyword(['hola', 'ole', 'alo'])
-    .addAnswer('🙌 Hola bienvenid@ a *Hierba Mala*')
     .addAnswer(
             [
-                'te comparto las siguientes opciones de interes sobre la Herboristeria',
+                '🙌 Hola bienvenid@ a *Hierba Mala*',
+                'Te comparto las siguientes opciones de interes sobre la Herboristeria',
                 '👉 *Panetones*',
                 '👉 *Roscas*',
                 '👉 *Panetones y Roscas*',
             ],
             null,
-            null,
-            [flowDocs,flowPanetones,flowRoscas]
+            null,         
+            [flowPanetones,flowRoscas]
     )
 
 const main = async () => {
