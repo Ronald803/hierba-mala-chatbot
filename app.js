@@ -15,16 +15,34 @@ const MockAdapter = require('@bot-whatsapp/database/mock')
 // })
 // app.listen(4000)
 //________________________________________________
+let infoMsg = { number:0,nickname:"",clientName:"" }
+const flowPanetonChocolate = addKeyword(['Chocolate Paneton','chocolate','choco','Paneton Chocolate'])
+    .addAnswer(
+        [
+            '📄 Elegiste el sabor Chocolate',
+            '📄 Cuantos panetones desea ordenar?'
+        ],{
+            media:'https://www.chocolatenegro.info/contenidos/imagenes/panettone-con-chocolate.jpg'
+        }
+    )
+    .addAnswer(
+        '¿Cuantos panetones deseas?',
+        {
+            capture: true,
+        },
+        async (ctx, { flowDynamic, state }) => {
+            await state.update({ cantidad: ctx.body, all: ctx })
+            flowDynamic('Gracias por tu nombre!')
+            const myState = state.getMyState()
+            infoMsg.number = myState.from
+            infoMsg.name = myState.name
+            infoMsg.nickname = myState.pushName
+            console.log(myState.name)
+            console.log(myState);
+            console.log(infoMsg);
+        }
+    )
 
-const flowPanetonChocolate = addKeyword(['Chocolate Paneton','chocolate','choco','Paneton Chocolate']).addAnswer(
-    [
-        '📄 Elegiste el sabor Chocolate',
-        '📄 Cuantos panetones desea ordenar?'
-    ],{
-        media:'https://www.chocolatenegro.info/contenidos/imagenes/panettone-con-chocolate.jpg'
-    },
-    []
-)
 const flowPanetonClasico = addKeyword(['Paneton Clasico','clasico','clasico paneton','clásico']).addAnswer(
     [
         '📄 Elegiste el Paneton Clasico',
