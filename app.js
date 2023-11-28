@@ -31,7 +31,7 @@ const flowPanetonChocolate = addKeyword(['Chocolate Paneton','chocolate','choco'
         },
         async (ctx, { flowDynamic, state }) => {
             await state.update({ name:ctx.pushName,cellphone:ctx.from,quantity: ctx.body,all: ctx })
-            flowDynamic('Perfecto, si deseas ordenar algo más escribe *Volver*')
+            flowDynamic('Perfecto, si deseas ordenar algo más escribe *Volver*. Escribe *Pagar* y te enviaremos un QR para que puedas reservar tu pedido.')
             const myState = state.getMyState()
             const infoRequestClient = {
                 name: myState.name,
@@ -66,7 +66,7 @@ const flowPanetonClasico = addKeyword(['Paneton Clasico','clasico','clasico pane
         },
         async (ctx, { flowDynamic, state }) => {
             await state.update({ name:ctx.pushName,cellphone:ctx.from,quantity: ctx.body,all: ctx })
-            flowDynamic('Perfecto, si deseas ordenar algo más escribe *Volver*')
+            flowDynamic('Perfecto, si deseas ordenar algo más escribe *Volver*. Escribe *Pagar* y te enviaremos un QR para que puedas reservar tu pedido.')
             const myState = state.getMyState()
             const infoRequestClient = {
                 name: myState.name,
@@ -110,7 +110,7 @@ const flowRoscaChocolate = addKeyword(['Rosca Chocolate','chocolate','chocolate 
         },
         async (ctx, { flowDynamic, state }) => {
             await state.update({ name:ctx.pushName,cellphone:ctx.from,quantity: ctx.body,all: ctx })
-            flowDynamic('Perfecto, si deseas ordenar algo más escribe *Volver*')
+            flowDynamic('Perfecto, si deseas ordenar algo más escribe *Volver*. Escribe *Pagar* y te enviaremos un QR para que puedas reservar tu pedido.')
             const myState = state.getMyState()
             const infoRequestClient = {
                 name: myState.name,
@@ -144,7 +144,7 @@ const flowRoscaClásica = addKeyword(['Rosca Clasica','clasica','clásica'])
         },
         async (ctx, { flowDynamic, state }) => {
             await state.update({ name:ctx.pushName,cellphone:ctx.from,quantity: ctx.body,all: ctx })
-            flowDynamic('Perfecto, si deseas ordenar algo más escribe *Volver*')
+            flowDynamic('Perfecto, si deseas ordenar algo más escribe *Volver*. Escribe *Pagar* y te enviaremos un QR para que puedas reservar tu pedido.')
             const myState = state.getMyState()
             const infoRequestClient = {
                 name: myState.name,
@@ -177,14 +177,26 @@ const flowPrincipal = addKeyword(['hola', 'ole', 'alo','volver'])
                 '👉 *Panetones*',
                 '👉 *Roscas*',
             ],
-            null,
+            {
+                media:'https://scontent.flpb1-1.fna.fbcdn.net/v/t39.30808-6/309506057_511788110953071_2436255184347948860_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=5f2048&_nc_ohc=N-ANk_3YDNUAX83r1Io&_nc_ht=scontent.flpb1-1.fna&oh=00_AfBq_5rnolwS84I9Nj2FU_FgzaRyeD3zSNCimXzH19gJgA&oe=6569D64C'
+            },
             null,         
             [flowPanetones,flowRoscas]
     )
+const flowPagar = addKeyword(['Pagar', 'pagar', 'pagar','pagar'])
+.addAnswer(
+    [
+        '📄 Con este QR deposita la mitad del precio total para reservar tu pedido.'
+    ],{
+        media:'./unionqr.jpeg'
+    },
+    null,
+    []
+)
 
 const main = async () => {
     const adapterDB = new MockAdapter()
-    const adapterFlow = createFlow([flowPrincipal])
+    const adapterFlow = createFlow([flowPrincipal,flowPagar])
     const adapterProvider = createProvider(BaileysProvider)
 
     createBot({
